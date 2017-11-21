@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import DataFetching from './containers/DataFetching/DataFetching';
+import styles from './index.css';
 
 // app component will hold state for the keyword and API key
 // when this state changes for a re-render, it will pass
@@ -19,14 +20,36 @@ import DataFetching from './containers/DataFetching/DataFetching';
 
 // routes will also need to be programmatically added for search results
 
+const API_KEY = 'dc6zaTOxFJmzC';
+const BUTTONS = ['cats', 'dogs', 'birds'];
+
 class App extends Component {
-  render() {
-    return (
-      <div>
-          <DataFetching />
-      </div>
-    );
-  }
+
+    state = {
+        apiKey: API_KEY,
+        keyword: BUTTONS[0],
+        limit: 16
+    };
+
+    updateKeyword = (event) => {
+        event.preventDefault();
+        const keyword = event.target.value;
+        this.setState({ keyword });
+    };
+
+    render() {
+        return (
+            <div className={styles.App}>
+                <DataFetching
+                    apiKey={this.state.apiKey}
+                    keyword={this.state.keyword}
+                    limit={this.state.limit}
+                    keywordUpdate={(event) => this.updateKeyword(event)}
+                    buttonNames={BUTTONS}
+                />
+            </div>
+        );
+    }
 }
 
 export default App;

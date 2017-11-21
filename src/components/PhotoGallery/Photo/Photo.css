@@ -1,0 +1,22 @@
+.PhotoContainer {
+    width: 220px;
+    height: 165px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.PhotoImage {
+    width: 100%;
+    transform: scale(1.25);
+    transition: transform 1.25s;
+}
+
+.PhotoContainer:hover .PhotoImage {
+    transform: scale(1.65);
+}
+
+@media only screen and (max-width: 767px) {
+    .PhotoContainer {
+        margin: auto;
+    }
+}
