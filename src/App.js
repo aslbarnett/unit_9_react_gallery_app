@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
 
 import DataFetching from './containers/DataFetching/DataFetching';
 import styles from './index.css';
@@ -35,6 +36,8 @@ class App extends Component {
         event.preventDefault();
         const keyword = event.target.value;
         this.setState({ keyword });
+        let path = `/${keyword}`;
+        this.props.history.push(path);
     };
 
     render() {
@@ -52,4 +55,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withRouter(App);

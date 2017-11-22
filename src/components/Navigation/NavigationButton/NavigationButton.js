@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import styles from './NavigationButton.css';
 
-const navigationButton = (props) => {
+class NavigationButton extends Component {
 
-    return (
-        <input className={styles.Button} type='button' value={props.name} onClick={props.click}/>
-    );
-};
+    render() {
+        return (
+            <input className={styles.Button} type='button' value={this.props.name} onClick={this.props.click} />
 
-export default navigationButton;
+        );
+    }
+}
+
+export default NavigationButton;

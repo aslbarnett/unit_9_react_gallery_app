@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Aux from '../../hoc/Aux';
 import Layout from '../../components/Layout/Layout';
+import NotFound from '../../components/NotFound/NotFound';
 
 class DataFetching extends Component {
 
@@ -40,6 +41,7 @@ class DataFetching extends Component {
                             buttons={this.props.buttonNames}
                             data={this.state.images}
                             keyword={this.state.keyword}
+                            loading={true}
                         />;
                     }} />
 
@@ -50,8 +52,20 @@ class DataFetching extends Component {
                             data={this.state.images}
                             keyword={this.state.keyword}
                             search
+                            loading={true}
                         />;
                     }} />
+
+                    <Route exact path='/:keyword' render={() => {
+                        return <Layout
+                            click={this.props.keywordUpdate}
+                            buttons={this.props.buttonNames}
+                            data={this.state.images}
+                            keyword={this.state.keyword}
+                            loading={true}
+                        />;
+                    }} />
+                    <Route component={NotFound} />
                 </Switch>
             </Aux>
         );

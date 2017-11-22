@@ -11,3 +11,9 @@
     -ms-align-items: flex-start;
     align-items: flex-start;
 }
+
+.NoMatches {
+    text-align: center;
+    margin: 40px auto;
+}
+
