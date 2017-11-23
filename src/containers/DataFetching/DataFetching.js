@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Aux from '../../hoc/Aux';
-import Layout from '../../components/Layout/Layout';
-import NotFound from '../../components/NotFound/NotFound';
+import Layout from '../Layout/Layout';
 
 class DataFetching extends Component {
 
     state = {
         images: [],
-        keyword: this.props.keyword
+        keyword: this.props.keyword,
+        loading: true
     };
 
 
@@ -24,9 +25,9 @@ class DataFetching extends Component {
     }
 
     performSearch = (apiKey, keyword, limit) => {
-        axios.get(`http://api.giphy.com/v1/gifs/search?q=${keyword}&api_key=${apiKey}&limit=${limit}`)
+        axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${keyword}&per_page=${limit}&format=json&nojsoncallback=1`)
             .then(response => {
-                this.setState({ images: response.data.data });
+                this.setState({ images: response.data.photos.photo, loading: false });
             })
             .catch(error => console.log('Error fetching and parsing data', error));
     };
@@ -34,42 +35,24 @@ class DataFetching extends Component {
     render() {
         return (
             <Aux>
-                <Switch>
-                    <Route exact path='/' render={() => {
-                        return <Layout
-                            click={this.props.keywordUpdate}
-                            buttons={this.props.buttonNames}
-                            data={this.state.images}
-                            keyword={this.state.keyword}
-                            loading={true}
-                        />;
-                    }} />
-
-                    <Route path='/search' render={() => {
-                        return <Layout
-                            click={this.props.keywordUpdate}
-                            buttons={this.props.buttonNames}
-                            data={this.state.images}
-                            keyword={this.state.keyword}
-                            search
-                            loading={true}
-                        />;
-                    }} />
-
-                    <Route exact path='/:keyword' render={() => {
-                        return <Layout
-                            click={this.props.keywordUpdate}
-                            buttons={this.props.buttonNames}
-                            data={this.state.images}
-                            keyword={this.state.keyword}
-                            loading={true}
-                        />;
-                    }} />
-                    <Route component={NotFound} />
-                </Switch>
+                <Layout
+                    click={this.props.keywordUpdate}
+                    buttons={this.props.buttonNames}
+                    data={this.state.images}
+                    keyword={this.state.keyword}
+                    loading={this.state.loading}
+                    search={this.props.search}
+                />
             </Aux>
         );
     }
 }
 
-export default DataFetching;
+DataFetching.propTypes = {
+    keywordUpdate: PropTypes.func.isRequired,
+    buttonNames: PropTypes.array.isRequired,
+    search: PropTypes.bool.isRequired,
+    keyword: PropTypes.string.isRequired
+};
+
+export default withRouter(DataFetching);

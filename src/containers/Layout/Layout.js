@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Aux from '../../hoc/Aux';
-import Navigation from '../Navigation/Navigation';
-import PhotoGallery from '../PhotoGallery/PhotoGallery';
-import Search from '../Search/Search';
+import Navigation from '../../components/Navigation/Navigation';
+import PhotoGallery from '../../components/PhotoGallery/PhotoGallery';
+import Search from '../../components/Search/Search';
 import styles from './Layout.css';
 
 class Layout extends Component {
@@ -13,21 +14,13 @@ class Layout extends Component {
     };
 
     componentDidMount() {
-        this.timerHandler();
+        this.displayLoading();
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({ loading: nextProps.loading });
-        this.timerHandler();
+        this.displayLoading();
     }
-
-    timerHandler = () => {
-        if (this.state.loading) {
-            setTimeout(() => {
-                this.setState({ loading: false });
-            }, 3000);
-        }
-    };
 
     displayLoading = () => {
         if (this.state.loading) {
@@ -38,7 +31,6 @@ class Layout extends Component {
     };
 
     render() {
-
         return (
             <Aux>
                 <header>
@@ -52,5 +44,14 @@ class Layout extends Component {
         );
     }
 }
+
+Layout.propTypes = {
+    loading: PropTypes.bool.isRequired,
+    data: PropTypes.array.isRequired,
+    keyword: PropTypes.string.isRequired,
+    search: PropTypes.bool.isRequired,
+    click: PropTypes.func.isRequired,
+    buttons: PropTypes.array.isRequired
+};
 
 export default Layout;

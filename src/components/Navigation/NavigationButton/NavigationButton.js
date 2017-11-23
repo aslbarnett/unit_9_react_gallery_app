@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './NavigationButton.css';
 
-class NavigationButton extends Component {
+const navigationButton = (props) => {
+    return (
+        <input className={styles.Button} type='button' value={props.name} onClick={props.click} />
+    );
+};
 
-    render() {
-        return (
-            <input className={styles.Button} type='button' value={this.props.name} onClick={this.props.click} />
+navigationButton.propTypes = {
+    name: PropTypes.string.isRequired,
+    click: PropTypes.func.isRequired
+};
 
-        );
-    }
-}
-
-export default NavigationButton;
+export default navigationButton;

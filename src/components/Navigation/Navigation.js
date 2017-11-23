@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import NavigationButton from './NavigationButton/NavigationButton';
 import styles from './Navigation.css';
@@ -13,6 +14,11 @@ const navigation = (props) => {
             {navigationButtons}
         </nav>
     );
+};
+
+navigation.propTypes = {
+    buttons: PropTypes.array.isRequired,
+    click: PropTypes.func.isRequired
 };
 
 export default navigation;

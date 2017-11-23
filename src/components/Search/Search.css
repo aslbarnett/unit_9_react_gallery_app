@@ -13,6 +13,11 @@
     cursor: pointer;
 }
 
+.SearchButton i {
+    color: #fff;
+    font-size: 1.5em;
+}
+
 .SearchButton:hover {
     background-color: #275270;
 }
