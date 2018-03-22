@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import DataFetching from '../DataFetching/DataFetching';
-import API_KEY from '../../config'
+import API_KEY from '../../config.js'
 
 const BUTTONS = ['cats', 'dogs', 'birds'];
 
